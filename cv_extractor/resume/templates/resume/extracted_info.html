@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extracted CV Information</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #4A90E2;
+            font-size: 2.5rem;
+            margin-top: 30px;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        h2 {
+            color: #4A90E2;
+            font-size: 1.8rem;
+            margin-top: 30px;
+        }
+        p {
+            font-size: 1rem;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .info-section {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .info-section p {
+            font-weight: bold;
+            color: #333;
+        }
+        .info-section .value {
+            font-weight: normal;
+            color: #555;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4A90E2;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #357ABD;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 50px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Extracted CV Information</h1>
+
+        <div class="info-section">
+            <p><strong>Doctor Name:</strong> <span class="value">{{ extracted_info.name }}</span></p>
+            <p><strong>Email:</strong> <span class="value">{{ extracted_info.email }}</span></p>
+            <p><strong>Phone:</strong> <span class="value">{{ extracted_info.phone }}</span></p>
+            <p><strong>Degree:</strong> <span class="value">{{ extracted_info.degree }}</span></p>
+            <p><strong>Hobbies:</strong> <span class="value">{{ extracted_info.hobbies }}</span></p>
+            <p><strong>Work Experience:</strong> <span class="value">{{ extracted_info.work_experience }}</span></p>
+            <p><strong>Skills:</strong> <span class="value">{{ extracted_info.skills }}</span></p>
+        </div>
+
+        <h2>AI Recommendation:</h2>
+        <div class="info-section">
+            <p class="value">{{ extracted_info.ai_recommendation }}</p>
+        </div>
+
+        <a href="{% url 'success' cv_id=cv.id %}" class="button">Back to Success Page</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 CV Extraction. All rights reserved.</p>
+    </footer>
+</body>
+</html>

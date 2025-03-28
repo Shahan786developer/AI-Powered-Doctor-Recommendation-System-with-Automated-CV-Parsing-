@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoctorRec - AI-Powered Doctor Recommendation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        .feature-circle {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #007bff; /* Bootstrap primary color */
+            color: white;
+            font-size: 1.25rem;
+            margin: 0 auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-circle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .feature-icon {
+            font-size: 1.5rem;
+        }
+        .feature-item {
+            padding-top: 2.5rem;
+        }
+        /* Styling for cards */
+        .card, .feature-item {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">DoctorRec</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="#patient-access">For Patients</a></li>
+                <li class="nav-item"><a class="nav-link" href="#doctor-register">For Doctors</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Find Trusted Healthcare Providers Near You</h1>
+        <p class="lead">Discover, connect, and consult with verified doctors recommended by AI.</p>
+        <a href="#register" class="btn btn-light btn-lg mt-3">Get Started</a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Platform Features</h2>
+        <div class="row text-center gy-4">
+            <div class="col-md-4">
+                <div class="feature-item p-4 rounded-4 shadow-lg">
+                    <div class="feature-circle"><i class="bi bi-file-earmark-check"></i></div>
+                    <h4 class="mt-4">Automated CV Parsing</h4>
+                    <p>Doctors can easily create profiles with automatic CV parsing for qualifications and skills.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-item p-4 rounded-4 shadow-lg">
+                    <div class="feature-circle"><i class="bi bi-geo-alt"></i></div>
+                    <h4 class="mt-4">Location-Based Search</h4>
+                    <p>Patients can filter doctors based on location, making it easy to find nearby options.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-item p-4 rounded-4 shadow-lg">
+                    <div class="feature-circle"><i class="bi bi-shield-check"></i></div>
+                    <h4 class="mt-4">Verified Professionals</h4>
+                    <p>Only PMC-recognized doctors are displayed, ensuring trusted recommendations for patients.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">How It Works</h2>
+        <div class="row justify-content-center text-center gy-4">
+            <div class="col-md-4">
+                <div class="feature-circle shadow-lg mb-3"><i class="bi bi-person-plus"></i></div>
+                <h5>Register & Upload CV</h5>
+                <p>Doctors register and upload CVs, which are automatically parsed to build profiles.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-circle shadow-lg mb-3"><i class="bi bi-shield-lock"></i></div>
+                <h5>Profile Verification</h5>
+                <p>Our team verifies doctors' credentials to ensure quality and accuracy.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-circle shadow-lg mb-3"><i class="bi bi-lightbulb"></i></div>
+                <h5>AI-Driven Recommendations</h5>
+                <p>Patients receive recommendations based on verified profiles tailored to their needs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Patient Access Section -->
+<section id="patient-access" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">For Patients</h2>
+        <div class="text-center mb-4">
+            <p>Find trusted, verified doctors near you with our recommendation system.</p>
+            <a href="#search" class="btn btn-primary btn-lg">Search for a Doctor</a>
+        </div>
+        <div class="row gy-4">
+            <div class="col-md-6">
+                <div class="card border-primary shadow-lg rounded-4">
+                    <div class="card-body">
+                        <h4>Personalized Search</h4>
+                        <p>Search by location and specialization to find the right doctor based on your needs.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-primary shadow-lg rounded-4">
+                    <div class="card-body">
+                        <h4>Verified Profiles Only</h4>
+                        <p>Our verification ensures that every doctor you choose is fully certified and trusted.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Doctor Registration Section -->
+<!-- Doctor Registration Section -->
+<section id="doctor-register" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Upload Your CV</h2>
+        <div class="text-center mb-4">
+            <p>Upload your CV to create a verified profile and connect with potential patients.</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-primary shadow-lg rounded-4">
+                    <div class="card-body">
+                        <h4 class="text-center mb-4">Complete Your Registration</h4>
+                        <p>(Only PDF's File is Allowed)</p>
+                        <form method="post" enctype="multipart/form-data" class="p-3">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                {{ form.as_p }}
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 btn-lg shadow">Upload CV</button>
+                        </form>
+                        <p class="text-center mt-3">
+                            Already registered? <a href="{% url 'login' %}" class="text-primary fw-bold">Login here</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+        <p>© 2024 DoctorRec. All Rights Reserved. | <a href="#" class="text-light">Privacy Policy</a></p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+import os
+from django.shortcuts import render, redirect
+from .forms import CVUploadForm
+from .models import CV, CVExtractedInfo
+from django.conf import settings
+from transformers import pipeline
+from PyPDF2 import PdfReader
+from docx import Document
+
+# Load the pre-trained Hugging Face model for NER (Named Entity Recognition)
+nlp = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english")
+
+def extract_information_from_cv(text):
+    ner_results = nlp(text)
+    entities = {
+        'names': [],
+        'skills': [],
+        'organizations': []
+    }
+
+    current_word = ""
+    current_entity = ""
+
+    # Post-process the NER output to handle fragmented tokens (e.g., ##hat => Khattak)
+    for result in ner_results:
+        word = result['word'].replace('##', '')  # Remove the subword markers
+        entity = result['entity']
+
+        if entity != current_entity:
+            # If we're starting a new entity, save the previous one
+            if current_entity == 'I-PER':
+                entities['names'].append(current_word.strip())
+            elif current_entity == 'I-ORG':
+                entities['organizations'].append(current_word.strip())
+            # Reset the current word and entity
+            current_word = word
+            current_entity = entity
+        else:
+            # If it's the same entity, append the word
+            current_word += word
+
+    # Append the last entity if it exists
+    if current_entity == 'I-PER':
+        entities['names'].append(current_word.strip())
+    elif current_entity == 'I-ORG':
+        entities['organizations'].append(current_word.strip())
+
+    return entities
+
+def extract_text_from_pdf(file_path):
+    reader = PdfReader(file_path)
+    text = ''
+    for page in reader.pages:
+        text += page.extract_text()
+    return text
+
+def extract_text_from_docx(file_path):
+    doc = Document(file_path)
+    full_text = []
+    for para in doc.paragraphs:
+        full_text.append(para.text)
+    return '\n'.join(full_text)
+
+def upload_cv(request):
+    if request.method == 'POST':
+        form = CVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            cv_instance = form.save()  # Save the CV instance first
+            uploaded_file = request.FILES['cv_file']
+
+            # Save the file
+            file_name = uploaded_file.name
+            file_path = os.path.join(settings.MEDIA_ROOT, 'uploads/cvs', file_name)
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+            with open(file_path, 'wb+') as destination:
+                for chunk in uploaded_file.chunks():
+                    destination.write(chunk)
+
+            # Determine file type and extract text accordingly
+            file_ext = file_name.split('.')[-1].lower()
+
+            if file_ext == 'pdf':
+                cv_text = extract_text_from_pdf(file_path)
+            elif file_ext == 'docx':
+                cv_text = extract_text_from_docx(file_path)
+            else:
+                # Handle unsupported formats or treat as plain text
+                with open(file_path, 'r', encoding='utf-8', errors='ignore') as file:
+                    cv_text = file.read()
+
+            # Extract information using the pre-trained NER model
+            extracted_data = extract_information_from_cv(cv_text)
+
+            # Save extracted information to the DB
+            extracted_info = CVExtractedInfo.objects.create(
+                cv=cv_instance,
+                names=', '.join(extracted_data['names']),
+                skills=', '.join(extracted_data['skills']),
+                organizations=', '.join(extracted_data['organizations'])
+            )
+
+            # Redirect to the success page with extracted data
+            return redirect('success', extracted_info_id=extracted_info.id)
+    else:
+        form = CVUploadForm()
+
+    return render(request, 'upload_cv.html', {'form': form})
+
+def success(request, extracted_info_id):
+    extracted_info = CVExtractedInfo.objects.get(id=extracted_info_id)
+    return render(request, 'success.html', {'extracted_info': extracted_info})

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* General Styling */
+    body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f4f8;
+        }
+.register-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(2, 102, 196, 0.1);
+    background-color: #fff;
+    text-align: center;
+}
+
+/* Headings */
+.register-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Labels */
+.label {
+    font-size: 14px;
+    color: #154bbe;
+    text-align: left;
+    margin: 10px 0 5px;
+}
+
+/* Input Wrapper and Icon Alignment */
+.input-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-group .icon {
+    position: absolute;
+    left: 10px;
+    color: #067ec4;
+    font-size: 18px;
+}
+
+/* Custom Input Wrapper Styling */
+.custom-input-wrapper {
+    width: 100%;
+}
+
+.styled-input .form-control {
+    width: 100%;
+    padding: 10px;
+    padding-left: 35px;
+    font-size: 16px;
+    border: 1px solid #196e96;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.styled-input .form-control:focus {
+    border-color: #389aeb;
+}
+
+/* Button Styling */
+.register-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0c3eaa;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-btn:hover {
+    background-color: #58afe0;}
+
+/* Error Message */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+</style>
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Username Field -->
+            <p class="label">Username</p>
+            <div class="input-group">
+                <span class="icon">&#128100;</span> <!-- Username Icon -->
+                <div class="custom-input-wrapper">
+                    <div class="styled-input">
+                        {{ form.username }}
+                    </div>
+                </div>
+            </div>
+            {% if form.username.errors %}
+            <div class="error-message">
+                {{ form.username.errors|striptags }}
+            </div>
+        {% endif %}
+            <!-- Password Field -->
+            <p class="label">Password</p>
+            <div class="input-group">
+                <span class="icon">&#128274;</span> <!-- Password Icon -->
+                <div class="custom-input-wrapper">
+                    <div class="styled-input">
+                        {{ form.password1 }}
+                    </div>
+                </div>
+            </div>
+            {% if form.password1.errors %}
+            <div class="error-message">
+                {{ form.password1.errors|striptags }}
+            </div>
+        {% endif %}
+            <!-- Confirm Password Field -->
+            <p class="label">Confirm Password</p>
+            <div class="input-group">
+                <span class="icon">&#128274;</span> <!-- Password Icon -->
+                <div class="custom-input-wrapper">
+                    <div class="styled-input">
+                        {{ form.password2 }}
+                    </div>
+                </div>
+                {% if form.password2.errors %}
+                <div class="error-message">
+                    {{ form.password2.errors|striptags }}
+                </div>
+            {% endif %}
+            </div>
+            
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+    
+        <p style="color: #0c3eaa;" >Already have an account? <a style="color: #0c3eaa;" href="{% url 'login' %}">Login</a></p>
+    </div>
+    
+</body>
+</html>
